@@ -27,8 +27,8 @@ namespace BangaloreBank
                 }
             }
 
-            int leftIndex = digits[1];
-            int rightIndex = digits[0];
+            int leftIndex = digits.Min();
+            int rightIndex = digits.Max();
 
            
 
