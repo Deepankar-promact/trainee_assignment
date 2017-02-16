@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InheritanceFunction
 {
-    class A
+    class MultiplicationClassA
     {
         protected void MultiplyBy2(ref int a)
         {
@@ -14,7 +14,7 @@ namespace InheritanceFunction
         }
     }
 
-    class B : A
+    class MultiplicationClassB : MultiplicationClassA
     {
         protected void MultiplyBy3(ref int a)
         {
@@ -22,7 +22,7 @@ namespace InheritanceFunction
         }
     }
 
-    class C : B
+    class MultiplicationClassC : MultiplicationClassB
     {
         protected void MultiplyBy5(ref int a)
         {
@@ -30,7 +30,7 @@ namespace InheritanceFunction
         }
     }
     
-    class D : C
+    class Multiplication : MultiplicationClassC
     {
         static void Main(string[] args)
         {
@@ -40,7 +40,7 @@ namespace InheritanceFunction
             int callCCount = 0;
             bool numberMatched = false;
 
-            D obj = new D();
+            Multiplication self = new Multiplication();
             
             Console.WriteLine("Enter a final value (It should be a factor of 2, 3 & 5):");
             int finalValue = int.Parse(Console.ReadLine());
@@ -50,17 +50,17 @@ namespace InheritanceFunction
             {
                 if(tempValue % 2 == 0)
                 {
-                    obj.MultiplyBy2(ref initialValue);
+                    self.MultiplyBy2(ref initialValue);
                     tempValue /= 2;
                     callACount++;
                 }else if(tempValue % 3 == 0)
                 {
-                    obj.MultiplyBy3(ref initialValue);
+                    self.MultiplyBy3(ref initialValue);
                     tempValue /= 3;
                     callBCount++;
                 }else if(tempValue % 5 == 0)
                 {
-                    obj.MultiplyBy5(ref initialValue);
+                    self.MultiplyBy5(ref initialValue);
                     tempValue /= 5;
                     callCCount++;
                 }else
@@ -78,7 +78,7 @@ namespace InheritanceFunction
             {
                 Console.WriteLine("A's function is called: " + callACount);
                 Console.WriteLine("B's function is called: " + callBCount);
-                Console.WriteLine("C's function is called: " + callCCount);
+                Console.WriteLine("C's fuSnction is called: " + callCCount);
             }else
             {
                 Console.WriteLine("The number given is not a factor of 2, 3, 5");
