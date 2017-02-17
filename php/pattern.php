@@ -42,6 +42,7 @@ function drawPattern($rows){
 	
 		
 }
-drawPattern(4);
-echo "HELLO";
+
+$rows = readline("Enter the number of rows: ");
+drawPattern($rows);
 ?>
