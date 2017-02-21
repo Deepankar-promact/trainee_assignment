@@ -25,6 +25,8 @@ namespace InventoryUnitTesting
         [Fact]
         public void WhenAProductIsAddedToInventory_PassingTest()
         {
+            var inventorySize = database.InventoryList.Count;
+
             var newInventory = new Inventory()
             {
                 Id = 6,
@@ -35,13 +37,15 @@ namespace InventoryUnitTesting
 
             var inventory = program.AddInventory(newInventory);
 
-            Assert.Equal(6, inventory.Count);
+            Assert.Equal(inventorySize + 1, inventory.Count);
 
         }
 
         [Fact]
         public void WhenAProductIsAddedToInventory_FailingTest()
         {
+            var inventorySize = database.InventoryList.Count;
+
             var newInventory = new Inventory()
             {
                 Id = 6,
@@ -50,7 +54,7 @@ namespace InventoryUnitTesting
                 CreationDateTime = System.DateTime.UtcNow
             };
 
-            Assert.NotEqual(6, program.AddInventory(newInventory).Count);
+            Assert.NotEqual(inventorySize+1, program.AddInventory(newInventory).Count);
         }
         #endregion
 
@@ -66,7 +70,7 @@ namespace InventoryUnitTesting
                 Price = 100, //Price raised
                 CreationDateTime = System.DateTime.UtcNow
             };
-            Assert.Equal(150, program.UpdateInventory(update).Price);
+            Assert.Equal(update.Price , program.UpdateInventory(update).Price);
         }
 
         [Fact]
@@ -80,7 +84,7 @@ namespace InventoryUnitTesting
                 Price = 100, //Price raised
                 CreationDateTime = System.DateTime.UtcNow
             };
-            Assert.NotEqual(150, program.UpdateInventory(update).Price);
+            Assert.NotEqual(update.Price , program.UpdateInventory(update).Price);
         }
         #endregion
 
@@ -112,7 +116,9 @@ namespace InventoryUnitTesting
         #region Checkout Testing
 
         [Fact]
-        public void WhenTheUserCheckOut_PassingTest()
+        [InlineData (1)]
+        [InlineData (2)]
+        public void WhenTheUserCheckOut_PassingTest(int id)
         {
             var inventorySize = database.InventoryList.Count;
 
