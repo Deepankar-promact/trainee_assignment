@@ -8,9 +8,10 @@ using ORMAssignment;
 namespace ORMAssignment.Migrations
 {
     [DbContext(typeof(Model))]
-    partial class ModelModelSnapshot : ModelSnapshot
+    [Migration("20170222042056_MyMigration6")]
+    partial class MyMigration6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")

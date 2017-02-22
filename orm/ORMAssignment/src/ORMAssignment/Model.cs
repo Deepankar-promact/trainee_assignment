@@ -11,8 +11,8 @@ namespace ORMAssignment
     /// </summary>
     public class Model : DbContext
     {
-        public DbSet<Update> update { get; set; }
-        public DbSet<Product> product { get; set; }
+        public DbSet<Update> UpdateTable { get; set; }
+        public DbSet<Product> ProductTable { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
