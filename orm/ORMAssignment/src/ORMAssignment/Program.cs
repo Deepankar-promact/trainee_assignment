@@ -24,113 +24,133 @@ namespace ORMAssignment
 
                 Program programObject = new Program();
                 programObject.DriverProgram();
-                
-
-               /* #region Add into product table
-
-                db.product.Add(new Product
-                {
-                    Name = "Product1",
-                    Description = "ProductDesc1",
-                    HomePageURL = "www.product1.com"
-                });
-
-                db.product.Add(new Product
-                {
-                    Name = "Product2",
-                    Description = "ProductDesc2",
-                    HomePageURL = "www.product2.com"
-                });
-
-                db.product.Add(new Product
-                {
-                    Name = "Product3",
-                    Description = "ProductDesc3",
-                    HomePageURL = "www.product3.com"
-                });
-                #endregion
-
-                #region Add into update table
-                db.update.Add(new Update
-                {
-                    Name = "Update1",
-                    Description = "UpdateDesc1",
-                    ProductId = 10 //Kindly change this ID according to the product Id generated
-                });
-
-                db.update.Add(new Update
-                {
-                    Name = "Update2",
-                    Description = "UpdateDesc2",
-                    ProductId = 10 //Kindly change this ID according to the product Id generated
-                });
-
-                db.update.Add(new Update
-                {
-                    Name = "Update1",
-                    Description = "UpdateDesc1",
-                    ProductId = 11 //Kindly change this ID according to the product Id generated
-                });
-
-                db.update.Add(new Update
-                {
-                    Name = "Update2",
-                    Description = "UpdateDesc2",
-                    ProductId = 11 //Kindly change this ID according to the product Id generated
-                });
-
-                db.update.Add(new Update
-                {
-                    Name = "Update3",
-                    Description = "UpdateDesc3",
-                    ProductId = 11 //Kindly change this ID according to the product Id generated
-                });
-                #endregion
-
-                #region Remove from Update Table
-
-                db.update.Remove(new Update
-                {
-                    Id = 12 //Kindly change this ID according to the update Id generated
-                });
-
-                #endregion
 
 
-                #region Remove from Product Table
+                /*
+                 * Below commented out area is automated 
+                 * operations. Some operation may fail if 
+                 * the second operation is dependend
+                 * on first operation. 
+                 * 
+                 */
 
-                db.product.Remove(new Product
-                {
-                    Id = 10 //Kindly change this ID according to the product Id generated
-                });
 
-                #endregion
-                
-                #region Update table in Product Table
+                /* #region Add into product table
 
-                db.product.Update(new Product
-                {
-                    Id = 10, //Kindly change this ID according to the product Id generated
-                    Name = "ProductChanged",
-                    Description = "New Description",
-                    HomePageURL = "www.blabla.com"
-                });
+                 db.product.Add(new Product
+                 {
+                     Name = "Product1",
+                     Description = "ProductDesc1",
+                     HomePageURL = "www.product1.com"
+                 });
+                 var count = db.SaveChanges();
 
-                #endregion
+                 db.product.Add(new Product
+                 {
+                     Name = "Product2",
+                     Description = "ProductDesc2",
+                     HomePageURL = "www.product2.com"
+                 });
+                 count = db.SaveChanges();
 
-                #region Update in Update Table
+                 db.product.Add(new Product
+                 {
+                     Name = "Product3",
+                     Description = "ProductDesc3",
+                     HomePageURL = "www.product3.com"
+                 });
+                 count = db.SaveChanges();
+                 #endregion
 
-                db.update.Update(new Update
-                {
-                    Id = 10, //Kindly change this ID according to the update Id generated
-                    Name = "Bla",
-                    Description = "BlaBla",
-                    ProductId = 11
-                });
+                 #region Add into update table
+                 db.update.Add(new Update
+                 {
+                     Name = "Update1",
+                     Description = "UpdateDesc1",
+                     ProductId = 10 //Kindly change this ID according to the product Id generated
+                 });
+                 count = db.SaveChanges();
 
-                #endregion
+                 db.update.Add(new Update
+                 {
+                     Name = "Update2",
+                     Description = "UpdateDesc2",
+                     ProductId = 10 //Kindly change this ID according to the product Id generated
+                 });
+                 count = db.SaveChanges();
 
-                var count = db.SaveChanges();*/
+                 db.update.Add(new Update
+                 {
+                     Name = "Update1",
+                     Description = "UpdateDesc1",
+                     ProductId = 11 //Kindly change this ID according to the product Id generated
+                 });
+                 count = db.SaveChanges();
+
+                 db.update.Add(new Update
+                 {
+                     Name = "Update2",
+                     Description = "UpdateDesc2",
+                     ProductId = 11 //Kindly change this ID according to the product Id generated
+                 });
+                 count = db.SaveChanges();
+
+                 db.update.Add(new Update
+                 {
+                     Name = "Update3",
+                     Description = "UpdateDesc3",
+                     ProductId = 11 //Kindly change this ID according to the product Id generated
+                 });
+                 count = db.SaveChanges();
+                 #endregion
+
+                 #region Remove from Update Table
+
+                 db.update.Remove(new Update
+                 {
+                     Id = 12 //Kindly change this ID according to the update Id generated
+                 });
+                 count = db.SaveChanges();
+
+                 #endregion
+
+
+                 #region Remove from Product Table
+
+                 db.product.Remove(new Product
+                 {
+                     Id = 10 //Kindly change this ID according to the product Id generated
+                 });
+                 count = db.SaveChanges();
+
+                 #endregion
+
+                 #region Update table in Product Table
+
+                 db.product.Update(new Product
+                 {
+                     Id = 10, //Kindly change this ID according to the product Id generated
+                     Name = "ProductChanged",
+                     Description = "New Description",
+                     HomePageURL = "www.blabla.com"
+                 });
+                 count = db.SaveChanges();
+
+                 #endregion
+
+                 #region Update in Update Table
+
+                 db.update.Update(new Update
+                 {
+                     Id = 10, //Kindly change this ID according to the update Id generated
+                     Name = "Bla",
+                     Description = "BlaBla",
+                     ProductId = 11
+                 });
+
+                 #endregion
+
+                 count = db.SaveChanges();*/
 
             }
         }
