@@ -163,7 +163,7 @@ namespace ORMAssignment
             string choice = "";
             do
             {
-                Console.WriteLine("Select a table for operation:");
+                Console.WriteLine("\nSelect a table for operation:");
                 Console.WriteLine("1 for Product Table");
                 Console.WriteLine("2 for Update Table");
                 Console.WriteLine("Type 'EXIT' to exit this program");
@@ -220,60 +220,56 @@ namespace ORMAssignment
         /// <param name="ID">Table ID</param>
         private void RemoveARow(int ID)
         {
-            Console.WriteLine("Enter ID (Required | Number): ");
-            int id = int.Parse(Console.ReadLine());
-            if (ID == PRODUCTTABLEID)
+            int id = 0;
+            try
             {
-                using (var db = new Model())
+                Console.WriteLine("Enter ID (Required | Number): ");
+                id = int.Parse(Console.ReadLine());
+
+
+
+
+                if (ID == PRODUCTTABLEID)
                 {
-                    db.ProductTable.Remove(new Product
+                    using (var db = new Model())
                     {
-                        Id = id
-                    });
-                    try
-                    {
+                        db.ProductTable.Remove(new Product
+                        {
+                            Id = id
+                        });
+                        
                         var count = db.SaveChanges();
                         Console.WriteLine(count + " changes done successfully");
+                        
+                       
                     }
-                    catch (DbUpdateException ex)
-                    {
-                        Console.WriteLine("Error occured while updating changes. Check if the Id exist or not.");
-                        Console.WriteLine("Try again? (Y/N)");
-                        char choice = (char)Console.Read();
 
-                        if (choice == 'Y' || choice == 'y')
-                            RemoveARow(PRODUCTTABLEID);
-                        else
-                            DriverProgram();
+                }
+                else
+                {
+                    using (var db = new Model())
+                    {
+                        db.UpdateTable.Remove(new Update
+                        {
+                            Id = id
+                        });
+                        
+                        var count = db.SaveChanges();
+                        Console.WriteLine(count + " changes done successfully");
+                      
+                        
                     }
                 }
-
             }
-            else
+            catch (FormatException ex)
             {
-                using (var db = new Model())
-                {
-                    db.UpdateTable.Remove(new Update
-                    {
-                        Id = id                       
-                    });
-                    try
-                    {
-                        var count = db.SaveChanges();
-                        Console.WriteLine(count + " changes done successfully");
-                    }
-                    catch (DbUpdateException ex)
-                    {
-                        Console.WriteLine("Error occured while updating changes. Check if the Id exist or not.");
-                        Console.WriteLine("Try again? (Y/N)");
-                        char choice = (char)Console.Read();
-
-                        if (choice == 'Y' || choice == 'y')
-                            RemoveARow(UPDATETABLEID);
-                        else
-                            DriverProgram();
-                    }
-                }
+                Console.WriteLine("Error formating ID. Please provide a Valid ID.");
+                TryAgainPrompt(ID, this.RemoveARow);
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("Error occured while updating changes. Check if the Id exist or not.");
+                TryAgainPrompt(ID, this.RemoveARow);
             }
         }
 
@@ -284,92 +280,77 @@ namespace ORMAssignment
         private void UpdateRow(int ID)
         {
             int id = 0;
-            if (ID == PRODUCTTABLEID)
+            try
             {
-                Console.WriteLine("Enter Product Id (Required): ");
-                id = int.Parse(Console.ReadLine());
-            }
-            else
-            {
-                Console.WriteLine("Enter Update Id (Required): ");
-                id = int.Parse(Console.ReadLine());
-            }
-
-
-            Console.WriteLine("Enter Name (Required): ");
-            string name = Console.ReadLine();
-
-            Console.WriteLine("Enter Description (Required): ");
-            string description = Console.ReadLine();
-
-            if (ID == PRODUCTTABLEID)
-            {
-                Console.WriteLine("Enter HomePageURL: ");
-                string url = Console.ReadLine();
-
-                using (var db = new Model())
+                if (ID == PRODUCTTABLEID)
                 {
-                    db.ProductTable.Update(new Product
+                    Console.WriteLine("Enter Product Id (Required): ");
+                    id = int.Parse(Console.ReadLine());
+                }
+                else
+                {
+                    Console.WriteLine("Enter Update Id (Required): ");
+                    id = int.Parse(Console.ReadLine());
+                }
+           
+                Console.WriteLine("Enter Name (Required): ");
+                string name = Console.ReadLine();
+
+                Console.WriteLine("Enter Description (Required): ");
+                string description = Console.ReadLine();
+
+                if (ID == PRODUCTTABLEID)
+                {
+                    Console.WriteLine("Enter HomePageURL: ");
+                    string url = Console.ReadLine();
+
+                    using (var db = new Model())
                     {
-                        Id = id,
-                        Name = name,
-                        Description = description,
-                        HomePageURL = url
-                    });
-                    try
-                    {
+                        db.ProductTable.Update(new Product
+                        {
+                            Id = id,
+                            Name = name,
+                            Description = description,
+                            HomePageURL = url
+                        });
                         var count = db.SaveChanges();
                         Console.WriteLine(count + " changes done successfully");
                     }
-                    catch (DbUpdateException ex)
-                    {
-                        Console.WriteLine("Error occured while updating changes. Check if the Id exist or not.");
-                        Console.WriteLine("Try again? (Y/N)");
-                        char choice = Console.ReadLine().ElementAt(0);
 
-                        if (choice == 'Y' || choice == 'y')
-                            UpdateRow(PRODUCTTABLEID);
-                        else
-                            DriverProgram();
-                    }
-
-                    
                 }
-
-            }
-            else
-            {
-                using (var db = new Model())
+                else
                 {
-                    Console.WriteLine("Enter a Valid ProductID (Required | Number): ");
-                    int productId = int.Parse(Console.ReadLine());
-
-                    db.UpdateTable.Add(new Update
+                    using (var db = new Model())
                     {
-                        Id = id,
-                        Name = name,
-                        Description = description,
-                        ProductId = id
-                    });
-                    try
-                    {
+                      
+                        Console.WriteLine("Enter a Valid ProductID (Required | Number): ");
+                        int productId = int.Parse(Console.ReadLine());
+       
+                        db.UpdateTable.Add(new Update
+                        {
+                            Id = id,
+                            Name = name,
+                            Description = description,
+                            ProductId = id
+                        });
+                       
                         var count = db.SaveChanges();
                         Console.WriteLine(count + " changes done successfully");
-                    }
-                    catch(DbUpdateException ex)
-                    {
-                        Console.WriteLine("Error occured while updating changes. Check if the Id exist or not.");
-                        Console.WriteLine("Try again? (Y/N)");
-                        char choice = Console.ReadLine().ElementAt(0);
-
-                        if (choice == 'Y' || choice == 'y')
-                            UpdateRow(UPDATETABLEID);
-                        else
-                            DriverProgram();
-                    }
-
+                        
+                        
                     
+                    }
                 }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error formating ID. Please provide a Valid ID.");
+                TryAgainPrompt(ID, this.UpdateRow);
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("Error occured while updating changes. Check if the Id exist or not.");
+                TryAgainPrompt(ID, this.UpdateRow);
             }
         }
 
@@ -379,61 +360,88 @@ namespace ORMAssignment
         /// <param name="ID">Table ID</param>
         private void AddToTable(int ID)
         {
-            Console.WriteLine("Enter Name (Required): ");
-            string name = Console.ReadLine();
-
-            Console.WriteLine("Enter Description (Required): ");
-            string description = Console.ReadLine();
-
-            if (ID == PRODUCTTABLEID)
+            try
             {
-                Console.WriteLine("Enter HomePageURL: ");
-                string url = Console.ReadLine();
-
-                using (var db = new Model())
+                string name = "", description = "";
+                do
                 {
-                    db.ProductTable.Add(new Product
-                    {
-                        Name = name,
-                        Description = description,
-                        HomePageURL = url
-                    });
-                    var count = db.SaveChanges();
+                    Console.WriteLine("Enter Name (Required): ");
+                    name = Console.ReadLine();
+                } while (name.Count() == 0);
 
-                    Console.WriteLine(count + " changes done successfully");
+                do
+                {
+                    Console.WriteLine("Enter Description (Required): ");
+                    description = Console.ReadLine();
+                } while (description.Count() == 0);
+
+                if (ID == PRODUCTTABLEID)
+                {
+                    Console.WriteLine("Enter HomePageURL: ");
+                    string url = Console.ReadLine();
+
+                    using (var db = new Model())
+                    {
+                        db.ProductTable.Add(new Product
+                        {
+                            Name = name,
+                            Description = description,
+                            HomePageURL = url
+                        });
+                        var count = db.SaveChanges();
+
+                        Console.WriteLine(count + " changes done successfully");
+                    }
+
                 }
-                
-            }else
-            {
-                using (var db = new Model())
+                else
                 {
-                    Console.WriteLine("Enter a Valid ProductID (Required | Number): ");
-                    int id = int.Parse(Console.ReadLine());
-
-                    db.UpdateTable.Add(new Update
+                    using (var db = new Model())
                     {
-                        Name = name,
-                        Description = description,
-                        ProductId = id
-                    });
+                        int id = 0;
+                      
+                        Console.WriteLine("Enter a Valid ProductID (Required | Number): ");
+                        id = int.Parse(Console.ReadLine());
+                       
+                        
 
-                    try
-                    {
+                        db.UpdateTable.Add(new Update
+                        {
+                            Name = name,
+                            Description = description,
+                            ProductId = id
+                        });
+
+                        
                         var count = db.SaveChanges();
                         Console.WriteLine(count + " changes done successfully");
-                    }catch(DbUpdateException ex)
-                    {
-                        Console.WriteLine("Error occured while updating changes. Check if the productId exist or not.");
-                        Console.WriteLine("Try again? (Y/N)");
-                        char choice = Console.ReadLine().ElementAt(0);
-
-                        if (choice == 'Y' || choice == 'y')
-                            AddToTable(UPDATETABLEID);
-                        else
-                            DriverProgram();
+                       
+                        
                     }
                 }
             }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("Error occured while updating changes. Check if the productId exist or not.");
+                TryAgainPrompt(ID, this.AddToTable);
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Error formating ID. Please provide a Valid ID.");
+                TryAgainPrompt(ID, this.AddToTable);
+            }
+        }
+
+        private void TryAgainPrompt(int ID, Action<int> method)
+        {
+            Console.WriteLine("Try again? (Y/N)");
+            char choice = Console.ReadLine().ElementAt(0);
+
+            
+            if (choice == 'Y' || choice == 'y')
+                method.Invoke(ID);
+
+            DriverProgram();
         }
     }
 }
