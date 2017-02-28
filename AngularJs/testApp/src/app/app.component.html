@@ -42,7 +42,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#" (click)="textColor = ''">Random</a></li>
+            <li><a href="#" (click)="randomTextColor = true">Random</a></li>
             <li><a href="#" (click)="textColor = 'red'">Red</a></li>
             <li><a href="#" (click)="textColor = 'green'">Green</a></li>
             <li><a href="#" (click)="textColor = 'blue'">Blue</a></li>
@@ -59,7 +59,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#" (click)="bgColor = ' '">Random</a></li>
+            <li><a href="#" (click)="randomBgColor = true">Random</a></li>
             <li><a href="#" (click)="bgColor = 'red'">Red</a></li>
             <li><a href="#" (click)="bgColor = 'green'">Green</a></li>
             <li><a href="#" (click)="bgColor = 'blue'">Blue</a></li>
@@ -78,8 +78,8 @@
 <br/><br/>
 
 <div class="container" >
-  <div class = "jumbotron text-center">
-    <h1 [style.color]="getTextColor()" >{{flash}}</h1>
+  <div class = "jumbotron text-center" [style.background-color]="getBgColor()">
+    <h1 [style.color]="getTextColor()" style="background: transparent" >{{flash}}</h1>
   </div>
 </div>
 
