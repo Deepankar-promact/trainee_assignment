@@ -52,8 +52,11 @@ export class AppComponent {
     }
 
     onDelete(emp: Employee) {
+        this.editToggle[this.employees.indexOf(emp)] = false;
+
         this.http.delete("http://localhost:5000/api/Employees/" + emp.Id).subscribe((x) => {
             if (x.ok) {
+                //console.log(emp);
                 this.employees.splice(this.employees.indexOf(emp), 1);
 
                 this.editToggle.splice(this.employees.indexOf(emp), 1);
@@ -61,6 +64,9 @@ export class AppComponent {
                 this.text_decoration = this.TEXT_SUCCESS;
                 this.responseMsg = "Deleted Successfully";
                 this.fadeToolTip();
+
+                this.editToggle[this.employees.indexOf(emp)] = true;
+                this.isAddButtonVisible = true;
             }
             else {
                 this.text_decoration = this.TEXT_DANGER;
@@ -68,6 +74,7 @@ export class AppComponent {
                 this.fadeToolTip();
             }
         });
+       
     }
 
     onEdit(emp: Employee) {
@@ -89,6 +96,8 @@ export class AppComponent {
                     this.text_decoration = this.TEXT_SUCCESS;
                     this.responseMsg = "Updated Successfully";
                     this.fadeToolTip();
+
+                    this.employee = new Employee();
                 }
                 else {
                     this.text_decoration = this.TEXT_DANGER;
@@ -100,18 +109,18 @@ export class AppComponent {
     }
 
     searchTextChanged(searchText: string) {
+        this.setEditToggleValueToFalse();
         this.http.get("http://localhost:5000/api/Employees/search?name=" + searchText).subscribe((response) => {
             this.employees = response.json();
         });
     }
 
+    //HELPER FUNCTION
     editToggleStatusForEmployee(employee: Employee) {
         var index = this.employees.indexOf(employee);
         return this.editToggle[index];
     }
 
-
-    //HELPER FUNCTION
     setEditToggleValueToFalse() {
         for (var i = 0; i < this.employees.length; i++)
             this.editToggle[i] = false;

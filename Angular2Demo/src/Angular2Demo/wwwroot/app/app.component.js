@@ -49,13 +49,17 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.onDelete = function (emp) {
         var _this = this;
+        this.editToggle[this.employees.indexOf(emp)] = false;
         this.http.delete("http://localhost:5000/api/Employees/" + emp.Id).subscribe(function (x) {
             if (x.ok) {
+                //console.log(emp);
                 _this.employees.splice(_this.employees.indexOf(emp), 1);
                 _this.editToggle.splice(_this.employees.indexOf(emp), 1);
                 _this.text_decoration = _this.TEXT_SUCCESS;
                 _this.responseMsg = "Deleted Successfully";
                 _this.fadeToolTip();
+                _this.editToggle[_this.employees.indexOf(emp)] = true;
+                _this.isAddButtonVisible = true;
             }
             else {
                 _this.text_decoration = _this.TEXT_DANGER;
@@ -79,6 +83,7 @@ var AppComponent = (function () {
                 _this.text_decoration = _this.TEXT_SUCCESS;
                 _this.responseMsg = "Updated Successfully";
                 _this.fadeToolTip();
+                _this.employee = new Employee();
             }
             else {
                 _this.text_decoration = _this.TEXT_DANGER;
@@ -89,15 +94,16 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.searchTextChanged = function (searchText) {
         var _this = this;
+        this.setEditToggleValueToFalse();
         this.http.get("http://localhost:5000/api/Employees/search?name=" + searchText).subscribe(function (response) {
             _this.employees = response.json();
         });
     };
+    //HELPER FUNCTION
     AppComponent.prototype.editToggleStatusForEmployee = function (employee) {
         var index = this.employees.indexOf(employee);
         return this.editToggle[index];
     };
-    //HELPER FUNCTION
     AppComponent.prototype.setEditToggleValueToFalse = function () {
         for (var i = 0; i < this.employees.length; i++)
             this.editToggle[i] = false;
